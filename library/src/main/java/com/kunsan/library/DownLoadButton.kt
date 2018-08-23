@@ -314,6 +314,13 @@ class DownLoadButton: ProgressBar, View.OnClickListener {
 
     }
 
+    /**
+     * 获取当前的状态
+     */
+    fun getState(): Int {
+        return this.mCurrentState
+    }
+
 
     private var mStateChangeListener : StateChangeListener? = null
 
