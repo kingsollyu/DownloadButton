@@ -1,5 +1,6 @@
 package com.kunsan.library
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.text.TextUtils
@@ -37,6 +38,7 @@ class DownLoadButton: ProgressBar, View.OnClickListener {
         val STATE_PROGRESS_DOWNLOADING    = 1           //下载中
         val STATE_PROGRESS_PAUSE          = 2           //暂停
         val STATE_PROGRESS_FINISH         = 3           //完成
+        val STATE_PROGRESS_LAUNCH         = 4           //运行
     }
 
 
@@ -103,13 +105,13 @@ class DownLoadButton: ProgressBar, View.OnClickListener {
 
     }
 
-
     override fun onDraw(canvas: Canvas) {
         when(mCurrentState){
             STATE_PROGRESS_DEFAULT       ->     drawDefaultProgress(canvas)
             STATE_PROGRESS_DOWNLOADING   ->     drawDownLoadingProgress(canvas)
             STATE_PROGRESS_PAUSE         ->     drawPause(canvas)
             STATE_PROGRESS_FINISH        ->     drawFinish(canvas)
+            STATE_PROGRESS_LAUNCH        ->     drawLaunch(canvas)
         }
     }
 
@@ -179,13 +181,21 @@ class DownLoadButton: ProgressBar, View.OnClickListener {
         drawRectFBackground(canvas,mInstallColor)
         drawProgress(canvas,mInstallColor)
         showBorder = false
-        drawProgressText(canvas,"安装")
+        drawProgressText(canvas,"立即安装")
+    }
+
+    private fun drawLaunch(canvas: Canvas) {
+        drawRectFBackground(canvas,mInstallColor)
+        drawProgress(canvas,mInstallColor)
+        showBorder = false
+        drawProgressText(canvas,"开始试玩")
     }
 
 
     /**
      * PorterDuffXfermode绘制进度条
      */
+    @SuppressLint("NewApi")
     private fun drawProgress(canvas: Canvas?, mProgressColor:Int) {
 
         mPaint.style = Paint.Style.FILL
